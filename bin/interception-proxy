@@ -1,0 +1,3 @@
+#!/usr/bin/env node
+// This is the script which will be run when you run this package via `npx`.
+require("../dist/js/server.js");

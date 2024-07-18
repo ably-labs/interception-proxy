@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ -z $BASH_SOURCE ]]
+then
+  echo "This script must be run from a file."
+  exit 1
+fi
+
+# https://mywiki.wooledge.org/BashFAQ/028 for BASH_SOURCE
+#
+# When invoked via NPM, this script is invoked as a symlink in node_modules/.bin, so we use readlink to dereference the symlink (see https://stackoverflow.com/questions/421772/how-can-a-bash-script-know-the-directory-it-is-installed-in-when-it-is-sourced-w)
+mitmdump -s $(dirname $(readlink -f "${BASH_SOURCE}"))/../dist/python/mitmproxy_addon_generate_certs_and_exit.py
