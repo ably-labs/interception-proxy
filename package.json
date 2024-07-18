@@ -1,0 +1,40 @@
+{
+  "name": "interception-proxy",
+  "version": "0.1.0",
+  "main": "index.js",
+  "bin": {
+    "interception-proxy": "bin/interception-proxy",
+    "start-service": "bin/start-service",
+    "generate-mitmproxy-certs": "bin/generate-mitmproxy-certs"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc && cp -r src/python dist",
+    "start": "npm run build && bin/interception-proxy",
+    "format:check": "prettier . --check",
+    "format:fix": "prettier . --write",
+    "lint:check": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "json-rpc-2.0": "^1.7.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "@tsconfig/node-lts": "^20.1.3",
+    "@types/ws": "^8.5.11",
+    "eslint": "^9.7.0",
+    "globals": "^15.8.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.1"
+  },
+  "overrides": {
+    "eslint": "^9.7.0"
+  }
+}

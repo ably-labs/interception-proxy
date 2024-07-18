@@ -1,0 +1,34 @@
+name: check
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      # Set up
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Oldest LTS at time of writing
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - run: npm ci
+      - run: pip install mitmproxy websockets ruff mypy # TODO I’m not sure what is the right way of doing this; what's the package.json equivalent? Ditto for the installation instructions
+
+      # Run JS checks
+      - run: npm run format:check
+      - run: npm run lint:check
+      - run: npm run build
+
+      # Run Python checks
+      - run: ruff format --check
+      - run: ruff check
+      - run: mypy
